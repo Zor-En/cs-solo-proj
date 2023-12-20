@@ -1,16 +1,12 @@
 const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
+  mode: process.env.NODE_ENV,
     entry: './client/index.js',
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, 'build'),
+        filename: 'build.js'
     },
-    plugins: [
-        new HTMLWebpackPlugin({
-            template: './client/index.html'
-        })
-    ],
     module: {
         rules: [
           {
@@ -29,5 +25,20 @@ module.exports = {
             use: ['style-loader', 'css-loader'],
           }
         ],
+      },
+      plugins: [
+        new HTMLWebpackPlugin({
+            template: './client/index.html'
+        })
+    ],
+      devServer: {
+        static: {
+          publicPath :'/build',
+          directory:  path.resolve(__dirname, 'build'),
+        },
+        open: true,
+        proxy: {
+          '/': 'http://localhost:3000',
+        },
       },
 }

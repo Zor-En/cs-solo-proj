@@ -46,6 +46,10 @@ const router = express.Router()
 const createRouter = router.post('/', recipeControllers.createRecipe, (req,res)=> res.status(200).json(res.locals.newRecipe))
 
 //route handler
+if (process.env.NODE_ENV === 'production') {
+ app.use('/build', express.static(path.join(__dirname, '../build')))
+}
+
 app.use('/', createRouter)
 
 
