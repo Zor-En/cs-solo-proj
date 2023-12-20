@@ -1,0 +1,40 @@
+#upload-recipe-img {
+    height: 30vh;
+    width: 30vw;
+    border: 1px solid black
+}
+
+.recipe-img {
+        height: 350px;
+        width: 350px;
+        border: 1px solid rgb(188, 188, 188)
+}
+
+.recipe-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.create-recipe-form {
+    display: flex;
+    flex-direction: column;
+    label {
+        display: flex;
+        flex-direction: column;
+        width: 350px;
+        margin: 0.25em 0
+    }
+}
+
+.save-recipe-button {
+    margin-top: 1em
+}
+
+
+@media only screen and (max-width: 420px) {
+    .create-recipe-form {
+        label {
+            width: 90%;
+        }
+    }
+  }
