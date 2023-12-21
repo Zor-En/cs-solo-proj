@@ -1,18 +1,34 @@
-#upload-recipe-img {
-    height: 30vh;
-    width: 30vw;
-    border: 1px solid black
+#main-container {
+    display: flex;
+    padding: 2em;
 }
 
-.recipe-img {
-        height: 350px;
-        width: 350px;
-        border: 1px solid rgb(188, 188, 188)
+img {
+    height: 350px;
+    width: 350px;
+    border: 1px solid rgb(164, 164, 164);
+    object-fit: cover;
 }
 
+//main recipe container
 .recipe-container {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    width: 70vw;
+    transition: 1s ease-in;
+}
+
+.recipe-card {
+    display:flex;
+    margin: 1em 5em;
+    button {
+        margin: 0 1em 0 0;
+    } 
+}
+
+//creating recipes
+.create-recipe-container {
+    width: 30vw
 }
 
 .create-recipe-form {
@@ -24,10 +40,17 @@
         width: 350px;
         margin: 0.25em 0
     }
+    img {
+        margin: 0.5em 0;
+    }
+    label {
+        font-size: 1.1rem
+    }
 }
 
 .save-recipe-button {
-    margin-top: 1em
+    margin-top: 1em;
+    width: 350px;
 }
 
 

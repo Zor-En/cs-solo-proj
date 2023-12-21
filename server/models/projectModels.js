@@ -7,11 +7,9 @@ mongoose.connect(MONGO_URI)
   db.on('error', (error)=>console.log(error))
   db.once('open', ()=>console.log('connected to db'))
 
-const Schema = mongoose.Schema; 
-
 const recipeSchema = new mongoose.Schema({
     image: String,
-    name: String,
+    name: {type : String, required: true},
     ingredients: [String],
     directions: String,
     calories: Number,
