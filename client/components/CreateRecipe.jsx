@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+//inspo from star wars units
 const useInput = ({start}) => {
   const [value, setValue] = useState(start);
   const onChange = (e) => {
@@ -10,16 +11,17 @@ const useInput = ({start}) => {
 
 const CreateRecipe = () => {
   const [image, setImage] = useState("");
-  const [name, nameChange] = useInput("");
-  const [ingredients, ingredientsChange] = useInput("");
-  const [directions, directionsChange] = useInput("");
-  const [calories, caloriesChange] = useInput("");
-  const [protein, proteinChange] = useInput("");
-  const [carbohydrates, carbsChange] = useInput("");
-  const [fat, fatChange] = useInput("");
+  const [name, setNewName] = useInput("");
+  const [ingredients, setNewIngredients] = useInput("");
+  const [directions, setNewDirections] = useInput("");
+  const [calories, setNewCalories] = useInput("");
+  const [protein, setNewProtein] = useInput("");
+  const [carbohydrates, setNewCarbs] = useInput("");
+  const [fat,setNewFat] = useInput("");
 
   const [showForm, setShowForm] = useState(false);
 
+  //converts image to base64 to be uploaded to db
   const convertImg = (e) => {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
@@ -47,7 +49,7 @@ const CreateRecipe = () => {
         },
         body: JSON.stringify(body),
       });
-      
+
       const data = await response.json();
       console.log(data);
       console.log("Data Posted!");
@@ -64,52 +66,19 @@ const CreateRecipe = () => {
   return (
     <div className="create-recipe-container">
       <h2>Add New Recipes!</h2>
-      {!showForm ? (
-        <button onClick={showFormButton}>Add Recipe</button>
-      ) : (
-        <form className="create-recipe-form">
-          {image === "" || image === null ? (
-            ""
-          ) : (
-            <img width={250} height={250} src={image} alt="Recipe" />
-          )}
-          <input accept="image/" type="file" onChange={convertImg}></input>
-          <label htmlFor="name">
-            Name: <input value={name || ""} onChange={nameChange}></input>
-          </label>
-          <label htmlFor="ingredients">
-            Ingredients:{" "}
-            <textarea
-              rows={10}
-              value={ingredients || ""}
-              onChange={ingredientsChange}
-            ></textarea>
-          </label>
-          <label htmlFor="directions">
-            Directions:{" "}
-            <textarea
-              rows={10}
-              value={directions || ""}
-              onChange={directionsChange}
-            ></textarea>
-          </label>
-          <label htmlFor="calories">
-            Calories: <input value={calories || ""} onChange={caloriesChange}></input>
-          </label>
-          <label htmlFor="protein">
-            Protein: <input value={protein || ""} onChange={proteinChange}></input>
-          </label>
-          <label htmlFor="carbohydrates">
-            Carbs: <input value={carbohydrates || ""}  onChange={carbsChange}></input>
-          </label>
-          <label htmlFor="fat">
-            Fats: <input value={fat || ""} onChange={fatChange}></input>
-          </label>
-          <button className="save-recipe-button" onClick={saveRecipe}>
-            Submit
-          </button>
-        </form>
-      )}
+      {!showForm ? <button onClick={showFormButton}>Add Recipe</button> : 
+      <form className="create-recipe-form"> 
+        {image === "" || image === null ? ("") : <img width={250} height={250} src={image} alt="Recipe Image" />}
+        <input accept="image/" type="file" onChange={convertImg}></input>
+        <label> Name: <input value={name || ""} onChange={setNewName}></input></label>
+        <label>Ingredients: <textarea rows={10} value={ingredients || ""} onChange={setNewIngredients}></textarea></label>
+        <label>Directions: <textarea rows={10} value={directions || ""} onChange={setNewDirections}></textarea></label>
+        <label>Calories: <input value={calories || ""} onChange={setNewCalories} type="number"></input></label>
+        <label>Protein: <input value={protein || ""} onChange={setNewProtein} type="number"></input></label>
+        <label>Carbohydrates: <input value={carbohydrates || ""}  onChange={setNewCarbs} type="number"></input></label>
+        <label>Fat: <input value={fat || ""} onChange={setNewFat}type="number"></input></label>
+        <button className="save-recipe-button" onClick={saveRecipe}>Submit</button>
+      </form>}
     </div>
   );
 };

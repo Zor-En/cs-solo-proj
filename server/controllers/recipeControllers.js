@@ -45,9 +45,9 @@ recipeControllers.updateRecipe = async (req,res,next) => {
     const updates = req.body
     const id = req.params.id
     try {
-        const updateRecipe = await models.Recipe.updateOne({_id: id}, {$set: updates})
+        const updateRecipe = await models.Recipe.updateOne({_id: id}, updates)
         res.locals.updatedRecipe = updateRecipe
-        console.log('Data Updated Successfully!')
+        console.log('Data Updated Successfully!:', updateRecipe)
         return next()
     } catch (error) {
         console.error('Error in updateRecipes middleware:', error);

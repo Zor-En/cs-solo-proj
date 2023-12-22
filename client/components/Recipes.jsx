@@ -5,40 +5,35 @@ import CreateRecipe from "./CreateRecipe.jsx";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
-  const [createRecipe, setCreateRecipe] = useState(true);
+  const [getRecipe] = useState(true);
   const [deletedRecipe, setDeletedRecipe] = useState(false)
-  const [updatedRecipe, setUpdatedRecipe] = useState(false)
-  
+
   //handles getting recipes
   const getRecipeData = async () => {
     try {
       const response = await fetch("/db");
       const recipes = await response.json();
       console.log("Received data:", recipes);
-      if (response.ok) {
-        setRecipes(recipes);
-      }
+      setRecipes(recipes);
     } catch (error) {
       console.error("Error in front-end:", error.message);
     }
   };
-  useEffect(() => {
-    if (createRecipe) {
+  useEffect(() => { //useEffect since dom is being manipulated
+    if (getRecipe) {
       getRecipeData();
     }
-  }, [createRecipe]);
+  }, [getRecipe]);
 
 
  //handles deleting recipes
-  const deleteRecipe = async (id) => {
+  const deleteRecipeData = async (_id) => {
     try {
-      const response = await fetch('/db/' + id, {
+      const response = await fetch('/db/' + _id, {
         method: 'DELETE'
       })
-      if (response.ok) {
-        console.log('Successfully Deleted!')
-        setDeletedRecipe(true)
-      }
+      console.log('Successfully Deleted!')
+      setDeletedRecipe(true)
     } catch (error) {
       console.error("Error in front-end:", error.message);
     }
@@ -52,39 +47,13 @@ const Recipes = () => {
     }
   }, [deletedRecipe]);
 
-
-//handles updating recipes  
-const updateRecipe = async (id) => {
-  try {
-    const response = await fetch('/db/' + id, {
-      method: 'PATCH'
-    })
-    if (response.ok) {
-      console.log('Successfully Updated!')
-      setUpdatedRecipe(true)
-    }
-  } catch (error) {
-    console.error("Error in front-end:", error.message);
-  }
-}
-useEffect(() => {
-  if (updatedRecipe) {
-       //need to reset state!
-    setUpdatedRecipe(false); 
-       //need to perform another get request to re-render page!!!
-    getRecipeData()
-  }
-}, [updatedRecipe]);
-
-
 //display recipes
-const displayRecipes = recipes.reverse().map((data) => <RecipeCard key={uuidv4()} recipeData={data} deleteData={deleteRecipe} updateData={updateRecipe}/>)
+const displayRecipes = recipes.reverse().map((data) => <RecipeCard key={uuidv4()} recipeData={data} getRecipeData={getRecipeData} deleteRecipeData={deleteRecipeData}/>)
   
   return (
     <div id='main-container'>
          <CreateRecipe />
       <div className="recipe-container">{displayRecipes}</div>
-   
     </div>
   );
 };

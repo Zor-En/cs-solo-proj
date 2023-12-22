@@ -24,6 +24,16 @@ img {
     button {
         margin: 0 1em 0 0;
     } 
+    ul {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    label {
+        width: 350px;
+        font-size: 1.0rem;
+        margin: 0.5em 0 0.5em 0 
+    }
 }
 
 //creating recipes
@@ -38,13 +48,11 @@ img {
         display: flex;
         flex-direction: column;
         width: 350px;
-        margin: 0.25em 0
+        margin: 0.25em 0;
+        font-size: 1.1rem
     }
     img {
         margin: 0.5em 0;
-    }
-    label {
-        font-size: 1.1rem
     }
 }
 
@@ -53,11 +61,3 @@ img {
     width: 350px;
 }
 
-
-@media only screen and (max-width: 420px) {
-    .create-recipe-form {
-        label {
-            width: 90%;
-        }
-    }
-  }
